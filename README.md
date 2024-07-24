@@ -18,7 +18,7 @@ The GitHub action outputs the following information:
 
 ```yaml
 - name: Setup Hedera Solo
-  uses: OpenElements/hedera-solo-action@v1
+  uses: OpenElements/hedera-solo-action@v0.1
   id: solo
   
 - name: Use Hedera Solo
