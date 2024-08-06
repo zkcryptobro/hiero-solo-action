@@ -1,4 +1,4 @@
-name: Simple Usage
+name: With MirrorNode
 
 on:
   workflow_dispatch:
