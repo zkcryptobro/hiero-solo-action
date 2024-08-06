@@ -19,6 +19,12 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: print inputs
+      shell: bash
+      run: |
+        echo "installMirrorNode: ${{ inputs.installMirrorNode }}"
+        echo "is installMirrorNode: ${{ inputs.installMirrorNode == 'true' }}"
+
     - name: Setup Java
       uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4.2.1
       with:
