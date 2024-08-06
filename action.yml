@@ -1,5 +1,11 @@
 name: 'Hedera Solo'
 description: 'Run a Hedera Solo network'
+inputs:
+  installMirrorNode:
+    description: 'Defines if a mirror node should be installed'
+    required: true
+    default: false
+    type: boolean
 outputs:
   accountId:
     description: "Hedera account id for a new account"
@@ -55,6 +61,13 @@ runs:
         solo node setup
         solo node start
         kubectl port-forward svc/haproxy-node0-svc -n solo-test 50211:50211 &
+
+    - name: Deploy MirrorNode
+      if: ${{ inputs.installMirrorNode == 'true' }} // see https://github.com/actions/runner/issues/2238
+      shell: bash
+      run: |
+        solo mirror-node deploy
+        kubectl port-forward svc/fullstack-deployment-hedera-explorer -n solo-test 8080:80 &
 
     - name: Create account
       id: create-account

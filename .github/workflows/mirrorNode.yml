@@ -1,0 +1,21 @@
+name: Simple Usage
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Hedera Solo
+        uses: ./
+        with:
+          installMirrorNode: true
+        id: solo
+
+      - name: Use Hedera Solo
+        run: |
+          echo "Account ID: ${{ steps.solo.outputs.accountId }}"
+          echo "Private Key: ${{ steps.solo.outputs.privateKey }}"
+          echo "Public Key: ${{ steps.solo.outputs.publicKey }}"
+          curl -X 'GET' 'http://localhost:8080/api/v1/network/nodes' -H 'accept: application/json'
