@@ -35,4 +35,7 @@ The GitHub action outputs the following information:
     echo "Private Key: ${{ steps.solo.outputs.privateKey }}"
     echo "Public Key: ${{ steps.solo.outputs.publicKey }}"
 ```
+# Tributes
 
+This action is based on the work of [Hedera Hashgraph](https://github.com/hashgraph/hedera-services) and [Hedera Solo](https://github.com/hashgraph/solo).
+Without the great help of [Timo](https://github.com/timo0), [Nathan](https://github.com/nathanklick), and [Lenin](https://github.com/leninmehedy) this action would not exist.
