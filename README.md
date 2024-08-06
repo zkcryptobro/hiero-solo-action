@@ -6,6 +6,14 @@ The network contains one node that can be accessed at `localhost:50211`.
 The action creates an account that contains 10,000,000 hbars.
 All information about the account is stored as output to the github action.
 
+## Inputs
+
+The GitHub action takes the following inputs:
+
+- `installMirrorNode`: A boolean parameter that is `false` by default.
+  If set to `true`, the action will install a mirror node in addition to the main node.
+  The mirror node can be accessed at `localhost:8080`.
+
 ## Outputs
 
 The GitHub action outputs the following information:
