@@ -6,6 +6,10 @@ inputs:
     required: true
     default: false
     type: boolean
+  installRelay:
+    description: 'Install JSON-RPC-Relay'
+    required: false
+    default: false
 outputs:
   accountId:
     description: "Hedera account id for a new account"
