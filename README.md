@@ -14,6 +14,9 @@ The GitHub action takes the following inputs:
   If set to `true`, the action will install a mirror node in addition to the main node.
   The mirror node can be accessed at `localhost:8080`.
 
+- `installRelay`: A boolean parameter that is `false` by default.
+  If set to `true`, the action will install a JSON-RPC-Relay in addition to the main node.
+
 ## Outputs
 
 The GitHub action outputs the following information:
