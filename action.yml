@@ -9,7 +9,7 @@ inputs:
   installRelay:
     description: 'Install JSON-RPC-Relay'
     required: false
-    default: true
+    default: false
     type: boolean
 outputs:
   accountId:
