@@ -9,7 +9,8 @@ inputs:
   installRelay:
     description: 'Install JSON-RPC-Relay'
     required: false
-    default: false
+    default: true
+    type: boolean
 outputs:
   accountId:
     description: "Hedera account id for a new account"
@@ -78,6 +79,14 @@ runs:
       run: |
         solo mirror-node deploy
         kubectl port-forward svc/fullstack-deployment-hedera-explorer -n solo-test 8080:80 &
+
+    - name: Setup and Deploy Relay
+      shell: bash
+      run: |
+        chmod +x ${{ github.action_path }}/setup.sh
+        ${{ github.action_path }}/setup.sh
+      env:
+        INPUT_INSTALLRELAY: ${{ inputs.installRelay }}
 
     - name: Create account
       id: create-account
