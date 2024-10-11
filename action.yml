@@ -11,6 +11,10 @@ inputs:
     required: false
     default: false
     type: boolean
+  mirrorNodePort : 
+    description : 'Port for Mirror Node' 
+    required: false  
+    default : '8080'
 outputs:
   accountId:
     description: "Hedera account id for a new account"
@@ -78,7 +82,7 @@ runs:
       shell: bash
       run: |
         solo mirror-node deploy
-        kubectl port-forward svc/fullstack-deployment-hedera-explorer -n solo-test 8080:80 &
+        kubectl port-forward svc/fullstack-deployment-hedera-explorer -n solo-test ${{ inputs.mirrorNodePort }}:80 &
 
     - name: Setup and Deploy Relay
       shell: bash
