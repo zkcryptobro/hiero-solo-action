@@ -9,7 +9,7 @@ inputs:
   installRelay:
     description: 'Install JSON-RPC-Relay'
     required: false
-    default: false
+    default: true
     type: boolean
   mirrorNodePort : 
     description : 'Port for Mirror Node' 
