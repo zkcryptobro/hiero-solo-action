@@ -84,13 +84,14 @@ runs:
         solo mirror-node deploy
         kubectl port-forward svc/fullstack-deployment-hedera-explorer -n solo-test ${{ inputs.mirrorNodePort }}:80 &
 
-    - name: Setup and Deploy Relay
+    - name: Deploy JSON-RPC-Relay
+      if: ${{ inputs.installRelay == 'true' }}
       shell: bash
       run: |
-        chmod +x ${{ github.action_path }}/setup.sh
-        ${{ github.action_path }}/setup.sh
-      env:
-        INPUT_INSTALLRELAY: ${{ inputs.installRelay }}
+        echo "Installing JSON-RPC-Relay..."
+        solo relay deploy
+        echo "JSON-RPC-Relay installed successfully"
+
 
     - name: Create account
       id: create-account
