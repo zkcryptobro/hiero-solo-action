@@ -6,6 +6,11 @@ inputs:
     required: true
     default: false
     type: boolean
+  installRelay:
+    description: 'Install JSON-RPC-Relay'
+    required: false
+    default: false
+    type: boolean
   mirrorNodePort : 
     description : 'Port for Mirror Node' 
     required: false  
@@ -78,6 +83,15 @@ runs:
       run: |
         solo mirror-node deploy
         kubectl port-forward svc/fullstack-deployment-hedera-explorer -n solo-test ${{ inputs.mirrorNodePort }}:80 &
+
+    - name: Deploy JSON-RPC-Relay
+      if: ${{ inputs.installRelay == 'true' }}
+      shell: bash
+      run: |
+        echo "Installing JSON-RPC-Relay..."
+        solo relay deploy
+        echo "JSON-RPC-Relay installed successfully"
+
 
     - name: Create account
       id: create-account
