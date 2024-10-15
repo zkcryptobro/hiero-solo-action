@@ -2,9 +2,9 @@
 
 A GitHub Action for setting up a Hedera Solo network.
 An overview of the usage and idea of the action can be found [here](https://dev.to/hendrikebbers/ci-for-hedera-based-projects-2nja).
-The network contains one node that can be accessed at `localhost:50211`.
 
-The action creates an account that contains 10,000,000 hbars.
+The network that is created by the action contains one hedera consensus node that can be accessed at `localhost:50211`.
+The action creates an account on the network that contains 10,000,000 hbars.
 All information about the account is stored as output to the github action.
 
 ## Inputs
