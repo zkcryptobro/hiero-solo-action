@@ -10,20 +10,11 @@ All information about the account is stored as output to the github action.
 
 The GitHub action takes the following inputs:
 
-- `installMirrorNode`: A boolean parameter that is `false` by default.
-  If set to `true`, the action will install a mirror node in addition to the main node.
-  The mirror node can be accessed at `localhost:8080`.
-- `installRelay`: A boolean parameter that is `false` by default.
-  If set to `true`, the action will install the JSON-RPC-Relay as part of the setup process. This allows you to easily add a relay to your Hedera network setup. The relay is 
-  installed using the `solo relay deploy` command.
-
-| Input          | Description                    | Required | Default   |
-|----------------|--------------------------------|----------|-----------|
-| `installRelay` | Install JSON-RPC-Relay         | false    | false     |
-| `hederaVersion`| Hedera network version to use  | false    | `v0.52.2` |   
-
-- `hederaVersion`: An optional parameter to specify the Hedera version used in the setup.
-  If not provided, the action defaults to the latest Mainnet version (v0.52.2).
+| Input          |  Required | Default |Description |
+|----------------|-----------|---------|-------------------------------|
+| `installMirrorNode` |  false    | `false`   | If set to `true`, the action will install a mirror node in addition to the main node. The mirror node can be accessed at `localhost:8080`. |
+| `installRelay` |  false    | `false`   | If set to `true`, the action will install the JSON-RPC-Relay as part of the setup process. |
+| `hederaVersion`|  false    | `v0.52.2` | Hedera network version to use |
 
 ## Outputs
 
