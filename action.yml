@@ -1,20 +1,24 @@
-name: 'Hedera Solo'
-description: 'Run a Hedera Solo network'
+name: "Hedera Solo"
+description: "Run a Hedera Solo network"
 inputs:
   installMirrorNode:
-    description: 'Defines if a mirror node should be installed'
+    description: "Defines if a mirror node should be installed"
     required: true
     default: false
     type: boolean
+  hederaVersion:
+    description: "Version of Hedera to use. Defaults to Mainnet version."
+    required: false
+    default: "v0.52.2"
+  mirrorNodePort:
+    description: "Port for Mirror Node"
+    required: false
+    default: "8080"
   installRelay:
     description: 'Install JSON-RPC-Relay'
     required: false
     default: false
     type: boolean
-  mirrorNodePort : 
-    description : 'Port for Mirror Node' 
-    required: false  
-    default : '8080'
 outputs:
   accountId:
     description: "Hedera account id for a new account"
@@ -52,7 +56,7 @@ runs:
     - name: Install Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: "3.10"
 
     - name: Setup Kind
       uses: helm/kind-action@0025e74a8c7512023d06dc019c617aa3cf561fde # v1.10.0
@@ -69,7 +73,7 @@ runs:
     - name: Deploy Solo Test Network
       shell: bash
       run: |
-        solo init -i node0 -t v0.51.5 -n solo-test --key-format pem --profile local
+        solo init -i node0 -t ${{ inputs.hederaVersion }} -n solo-test --key-format pem --profile local
         solo cluster setup
         solo node keys --tls-keys --gossip-keys
         solo network deploy
@@ -113,5 +117,5 @@ runs:
 
 # Ref: https://haya14busa.github.io/github-action-brandings/
 branding:
-  icon: 'share-2'
-  color: 'black'
+  icon: "share-2"
+  color: "black"
