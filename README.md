@@ -7,6 +7,8 @@ The network that is created by the action contains one hedera consensus node tha
 The action creates an account on the network that contains 10,000,000 hbars.
 All information about the account is stored as output to the github action.
 
+A good example on how the action is used can be found at the [hedera-enterprise project action](https://github.com/OpenElements/hedera-enterprise/blob/main/.github/workflows/maven.yml). Here the action is used to create a temporary network that is than used to execute tests against the network.
+
 ## Inputs
 
 The GitHub action takes the following inputs:
