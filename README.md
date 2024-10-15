@@ -10,10 +10,6 @@ All information about the account is stored as output to the github action.
 
 The GitHub action takes the following inputs:
 
-- `installMirrorNode`: A boolean parameter that is `false` by default.
-  If set to `true`, the action will install a mirror node in addition to the main node.
-  The mirror node can be accessed at `localhost:8080`.
-
 | Input          |  Required | Default |Description |
 |----------------|-----------|---------|-------------------------------|
 | `installMirrorNode` |  false    | `false`   | If set to `true`, the action will install a mirror node in addition to the main node. The mirror node can be accessed at `localhost:8080`. |
