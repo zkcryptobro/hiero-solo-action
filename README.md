@@ -1,6 +1,7 @@
 # hedera-solo-action
 
 A GitHub Action for setting up a Hedera Solo network.
+An overview of the usage and idea of the action can be found [here](https://dev.to/hendrikebbers/ci-for-hedera-based-projects-2nja).
 The network contains one node that can be accessed at `localhost:50211`.
 
 The action creates an account that contains 10,000,000 hbars.
