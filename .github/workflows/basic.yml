@@ -1,10 +1,12 @@
-name: Simple Usage
+name: PR Functionality Check
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -14,8 +16,18 @@ jobs:
         uses: ./
         id: solo
 
-      - name: Use Hedera Solo
+      - name: Validate Hedera Solo Outputs
         run: |
-          echo "Account ID: ${{ steps.solo.outputs.accountId }}"
-          echo "Private Key: ${{ steps.solo.outputs.privateKey }}"
-          echo "Public Key: ${{ steps.solo.outputs.publicKey }}"
+          if [ -z "${{ steps.solo.outputs.accountId }}" ]; then
+            echo "Account ID is missing!"
+            exit 1
+          fi
+          if [ -z "${{ steps.solo.outputs.privateKey }}" ]; then
+            echo "Private Key is missing!"
+            exit 1
+          fi
+          if [ -z "${{ steps.solo.outputs.publicKey }}" ]; then
+            echo "Public Key is missing!"
+            exit 1
+          fi
+          echo "All outputs are valid."
