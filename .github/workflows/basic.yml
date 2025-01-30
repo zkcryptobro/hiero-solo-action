@@ -1,4 +1,4 @@
-name: Validate Hedera Solo Outputs
+name: Simple Usage
 
 on:
   pull_request:
