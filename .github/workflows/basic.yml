@@ -1,4 +1,4 @@
-name: Simple Usage
+name: Validate Hedera Solo Outputs
 
 on:
   pull_request:
@@ -6,10 +6,10 @@ on:
       - main
 
 jobs:
-  build:
+  validate-outputs:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Hedera Solo
@@ -18,16 +18,11 @@ jobs:
 
       - name: Validate Hedera Solo Outputs
         run: |
-          if [ -z "${{ steps.solo.outputs.accountId }}" ]; then
-            echo "Account ID is missing!"
-            exit 1
-          fi
-          if [ -z "${{ steps.solo.outputs.privateKey }}" ]; then
-            echo "Private Key is missing!"
-            exit 1
-          fi
-          if [ -z "${{ steps.solo.outputs.publicKey }}" ]; then
-            echo "Public Key is missing!"
-            exit 1
-          fi
+          REQUIRED_OUTPUTS=("accountId" "privateKey" "publicKey")
+          for output in "${REQUIRED_OUTPUTS[@]}"; do
+            if [ -z "${{ steps.solo.outputs.$output }}" ]; then
+              echo "Error: $output is missing!"
+              exit 1
+            fi
+          done
           echo "All outputs are valid."
