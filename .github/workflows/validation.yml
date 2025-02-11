@@ -1,0 +1,65 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-outputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Hedera Solo
+        uses: ./
+        id: solo
+
+      - name: ✅ Validate Hedera Solo Outputs
+        run: |
+          if [ -z "${{ steps.solo.outputs.accountId }}" ]; then
+            echo "❌ Error: accountId is missing!"
+            exit 1
+          fi
+          if [ -z "${{ steps.solo.outputs.privateKey }}" ]; then
+            echo "❌ Error: privateKey is missing!"
+            exit 1
+          fi
+          if [ -z "${{ steps.solo.outputs.publicKey }}" ]; then
+            echo "❌ Error: publicKey is missing!"
+            exit 1
+          fi
+          echo "🎉 All outputs are valid!"
+
+  validate-mirror-node:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Hedera Solo with MirrorNode
+        uses: ./
+        with:
+          installMirrorNode: true
+        id: solo
+
+      - name: ✅ Validate Mirror Node API
+        run: |
+          echo "Account ID: ${{ steps.solo.outputs.accountId }}"
+          echo "Private Key: ${{ steps.solo.outputs.privateKey }}"
+          echo "Public Key: ${{ steps.solo.outputs.publicKey }}"
+          
+          # Wait for the mirror node to be fully up and running
+          sleep 10
+
+          RESPONSE=$(curl -s -w "%{http_code}" -X 'GET' 'http://localhost:8080/api/v1/network/nodes' -H 'accept: application/json' -o response.json)
+
+          if [ "$RESPONSE" -ne 200 ]; then
+            echo "❌ Error: API request failed with status code $RESPONSE"
+            cat response.json
+            exit 1
+          else
+            echo "✅ API request successful"
+            cat response.json
+          fi
