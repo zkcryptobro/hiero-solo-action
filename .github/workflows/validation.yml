@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  validate-outputs:
+  validate-hedera-outputs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 Checkout Repo
