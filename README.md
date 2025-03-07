@@ -33,7 +33,7 @@ The GitHub action outputs the following information:
 
 ```yaml
 - name: Setup Hiero Solo
-  uses: OpenElements/hiero-solo-action@v0.1
+  uses: hiero-ledger/hiero-solo-action@v0.5
   id: solo
   
 - name: Use Hiero Solo
