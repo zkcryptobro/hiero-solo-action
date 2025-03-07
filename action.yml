@@ -1,5 +1,5 @@
-name: "Hedera Solo"
-description: "Run a Hedera Solo network"
+name: "Hiero Solo Action"
+description: "Run a Hiero based network by using the solo tool"
 inputs:
   installMirrorNode:
     description: "Defines if a mirror node should be installed"
