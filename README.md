@@ -15,11 +15,12 @@ The GitHub action takes the following inputs:
 
 | Input          |  Required | Default |Description |
 |----------------|-----------|---------|-------------------------------|
-| `installMirrorNode` |  false    | `false`   | If set to `true`, the action will install a mirror node in addition to the main node. The mirror node can be accessed at `localhost:8080`. |
-| `installRelay` |  false    | `false`   | If set to `true`, the action will install the JSON-RPC-Relay as part of the setup process. |
 | `hieroVersion`|  false    | `v0.58.10` | Hiero consenus node version to use |
+| `installMirrorNode` |  false    | `false`   | If set to `true`, the action will install a mirror node in addition to the main node. The mirror node can be accessed at `localhost:8080`. |
 | `mirrorNodePortRest`|  false    | `8080` | Port for Mirror Node REST API |
 | `mirrorNodePortGrpc`|  false    | `5600` | Port for Mirror Node gRPC |
+| `installRelay` |  false    | `false`   | If set to `true`, the action will install the JSON-RPC-Relay as part of the setup process. |
+| `relayPort`|  false    | `7546` | Port for the JSON-RPC-Relay |
 
 > [! IMPORTANT]
 > The used Solo version isn't compatible with Hiero consenus node versions above v0.58.10.
@@ -27,17 +28,23 @@ The GitHub action takes the following inputs:
 
 ## Outputs
 
-The GitHub action outputs the following information:
+| Output                                   | Description                                                                 |
+|------------------------------------------|-----------------------------------------------------------------------------|
+| `steps.solo.outputs.accountId`           | The account ID of account created in ED25519 format.                        |
+| `steps.solo.outputs.publicKey`           | The public key of account created in ED25519 format.                        |
+| `steps.solo.outputs.privateKey`          | The private key of account created in ED25519 format.                       |
+| `steps.solo.outputs.ecdsaAccountId`      | The account ID of the account created (in ECDSA format).                    |
+| `steps.solo.outputs.ecdsaPublicKey`      | The public key of the account created (in ECDSA format).                    |
+| `steps.solo.outputs.ecdsaPrivateKey`     | The private key of the account created (in ECDSA format).                   |
+| `steps.solo.outputs.ed25519AccountId`    | Same as `accountId`, but with an explicit ED25519 format!                   |
+| `steps.solo.outputs.ed25519PublicKey`    | Same as `publicKey`, but with an explicit ED25519 format!                   |
+| `steps.solo.outputs.ed25519PrivateKey`   | Same as `privateKey`, but with an explicit ED25519 format!                  |
 
-- `accountId`: The account ID of the account created.
-- `privateKey`: The private key of the account created.
-- `publicKey`: The public key of the account created.
-
-# Usage
+# Simple usage
 
 ```yaml
 - name: Setup Hiero Solo
-  uses: hiero-ledger/hiero-solo-action@v0.5
+  uses: hiero-ledger/hiero-solo-action@v0.8
   id: solo
   
 - name: Use Hiero Solo
@@ -46,6 +53,35 @@ The GitHub action outputs the following information:
     echo "Private Key: ${{ steps.solo.outputs.privateKey }}"
     echo "Public Key: ${{ steps.solo.outputs.publicKey }}"
 ```
+
+# Usage with `ecdsa` account format
+
+```yaml
+- name: Setup Hiero Solo
+  uses: hiero-ledger/hiero-solo-action@v0.8
+  id: solo
+  
+- name: Use Hiero Solo
+  run: |
+    echo "Account ID: ${{ steps.solo.outputs.ecdsaAccountId }}"
+    echo "Private Key: ${{ steps.solo.outputs.ecdsaPrivateKey }}"
+    echo "Public Key: ${{ steps.solo.outputs.ecdsaPublicKey }}"
+```
+
+# Usage with `ED25519` account format
+
+```yaml
+- name: Setup Hiero Solo
+  uses: hiero-ledger/hiero-solo-action@v0.8
+  id: solo
+  
+- name: Use Hiero Solo
+  run: |
+    echo "Account ID: ${{ steps.solo.outputs.ed25519AccountId }}"
+    echo "Private Key: ${{ steps.solo.outputs.ed25519PrivateKey }}"
+    echo "Public Key: ${{ steps.solo.outputs.ed25519PublicKey }}"
+```
+
 # Tributes
 
 This action is based on the work of [Hiero Solo](https://github.com/hiero-ledger/solo).
