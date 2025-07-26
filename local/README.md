@@ -21,8 +21,10 @@ You have two options to run a local solo test network:
 First at all, you have to build the Docker image:
 
 ```shell
-docker build -t hiero/solo-runner .
+docker build -t hiero/solo-runner . --build-context gh=..
 ```
+
+The flag `--build-context` is important to copy files from the GH action
 
 The versions and some settings of the contained tools can be overriden during the build:
 
@@ -53,14 +55,14 @@ Both flags (`-v /var/run/docker.sock:/var/run/docker.sock --network host`) are i
 If you don't want to care about building a Docker image, we prepare a `compose.yaml` that automatically build and run the container, that is defined in `Dockerfile`.
 
 ```shell
-docker compose up
+docker compose up --build
 ```
 
-## How to clean up the local Solo Test network
+The flag `--build` is optional.
+It forces to build the Docker image at every run.
 
-As you mention, the Solo test network is still running, even through the solo-runner stops.
-If you want to clean up the local Solo test network, you have to delete the K8s cluster:
 
-```shell
-docker rm -f solo-e2e-control-plane
-```
+## Interaction with the Local Solo Test Network
+
+### Access to HAProxy
+You can interact with the internal HAProxy via `localhost:50211`from your host machine.
