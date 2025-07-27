@@ -32,6 +32,8 @@ The GitHub action takes the following inputs:
 > The used Solo version isn't compatible with Hiero consenus node versions above v0.58.10.
 > Therefore we recommend to not change `hieroVersion`.
 
+# XXX
+
 ## Outputs
 
 | Output                                   | Description                                                                 |
